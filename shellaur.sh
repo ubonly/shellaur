@@ -102,14 +102,14 @@ shell_options=("fish" "zsh" "skip")
 select shell_opt in "${shell_options[@]}"; do
 	case $shell_opt in
 		"fish")
-            fake_load "Устанавливаем fish..."
+            fake_load "installing..."
             # installig fish fish
             sudo pacman -S fish
             chsh -s /bin/fish
             break
             ;;
            "zsh")
-            fake_load "Устанавливаем zsh..."
+            fake_load "installing zsh..."
             # installing zsh
             sudo pacman -S zsh
             chsh -s /bin/zsh
