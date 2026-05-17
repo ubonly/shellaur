@@ -1,12 +1,32 @@
 #!/bin/bash
 
-PS3="choose AUR helper: "
+# animation
+fake_load() {
+    local text="$1"
+    echo -n "$text"
+    for i in {1..3}; do
+        sleep 0.4
+        echo -n "."
+    done
+    echo "done"
+    sleep 0.5
+}
+
+clear
+echo "looking for needed packages..."
+
+sudo pacman -S --needed --noconfirm base-devel git
+
+sleep 1.5
+
+clear
+PS3="choose aur helper: "
 options=("yay" "paru" "trizen" "pikaur" "pakku" "aura" "skip")
 
 select opt in "${options[@]}"; do
     case $opt in
 	    "yay")
-            echo "installing yay..."
+             fake_load "installing yay..."
             # typo commands to install
             cd /tmp
             git clone https://aur.archlinux.org/yay.git
@@ -16,7 +36,7 @@ select opt in "${options[@]}"; do
             break
             ;;
            "paru")
-            echo "installing paru..."
+             fake_load "installing paru..."
             cd /tmp
             git clone https://aur.archlinux.org/paru.git
             cd paru
@@ -25,7 +45,7 @@ select opt in "${options[@]}"; do
             break
             ;;
 	   "aura")
-            echo "installing aura..."
+            fake_load "installing aura..."
             cd /tmp
             git clone https://aur.archlinux.org/aura.git 
             cd aura
@@ -34,7 +54,7 @@ select opt in "${options[@]}"; do
             break
             ;;
             "trizen")
-             echo "installing trizen..."
+             fake_load "installing trizen..."
             cd /tmp
             git clone https://aur.archlinux.org/trizen.git 
             cd trizen
@@ -44,7 +64,7 @@ select opt in "${options[@]}"; do
             ;;
 
 	    "pikaur") 
-             echo "installing pikaur..."
+             fake_load "installing pikaur..."
             cd /tmp
             git clone https://aur.archlinux.org/pikaur.git 
             cd pikaur
@@ -54,7 +74,7 @@ select opt in "${options[@]}"; do
             ;;
 
             "pakku")
-             echo "installing pakku..."
+             fake_load "installing pakku..."
             cd /tmp
             git clone https://aur.archlinux.org/pakku.git 
             cd pakku
@@ -63,63 +83,71 @@ select opt in "${options[@]}"; do
             break 
             ;;
            "skip")
-            echo "skipping install."
+            fake_load "skipping install."
             break
             ;;
         *)
-            echo "wrong answer."
+		echo "write correct option"
             ;;
-    esac
+	esac
 done
-
 echo "aur helper install finished, moving to shell"
 
+sleep 1.5
+
+clear
 PS3="choose shell you want to install: "
 shell_options=("fish" "zsh" "skip")
 
 select shell_opt in "${shell_options[@]}"; do
 	case $shell_opt in
 		"fish")
-            echo "Устанавливаем fish..."
+            fake_load "Устанавливаем fish..."
             # installig fish fish
             sudo pacman -S fish
             chsh -s /bin/fish
             break
             ;;
-    "zsh")
-            echo "Устанавливаем zsh..."
+           "zsh")
+            fake_load "Устанавливаем zsh..."
             # installing zsh
             sudo pacman -S zsh
-            chsh -s /bib/zsh
+            chsh -s /bin/zsh
             break
             ;;
-    "skip")
-            echo "skipping shell install."
+    	   "skip")
+            fake_load "skipping shell install."
             break
             ;;
         *)
-            echo "wrong answer."
+		echo "write correct option"
             ;;
-    esac
+	esac
 done
 
 #echo "shell configuration ended do you"
+sleep 1.5
+clear
 
-
-PS3="shell configuration ended. do you wish to reboot your system to let changes take affect on your pc"
-rebo_options=("reboot" "keep working(changes wont apply until you reboot pc)"
+PS3="do you wish to reboot your system to let changes take affect: "
+echo "shell configuration endede"
+rebo_options=("reboot" "skip")
 
 select rebo_opt in "${rebo_options[@]}"; do
-	case $redo_opt in
+	case $rebo_opt in
 		"reboot")
-			echo "rebooting your hardware..."
+			fake_load "rebooting your hardware..."
 			reboot
 			break
 			;;
-		"keep working(changes wont apply until you reboot pc)")
-			echo "skipping reboot"
+		"skip")
+			fake_load "skipping reboot"
 			break
 			;;
 		*)
+			fake_load "write correct option"
+			;;
+	esac
+done
 
 	      
